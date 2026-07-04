@@ -28,7 +28,7 @@ public class ReservarPecasListener {
   private final ProcessedCommandJpaRepository processedCommandRepo;
 
   @RabbitListener(queues = RabbitMqConfig.QUEUE_RESERVAR_PECAS)
-  @Transactional
+  @Transactional(noRollbackFor = {EstoqueInsuficienteException.class, ItemNaoEncontradoException.class})
   public void onReservarPecas(ReservarPecasCommand command) {
     log.info("[MQ] Recebido ReservarPecasCommand sagaId={} osId={}", command.sagaId(),
         command.osId());

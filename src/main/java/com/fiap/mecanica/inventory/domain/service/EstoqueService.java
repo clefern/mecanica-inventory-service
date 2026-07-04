@@ -17,7 +17,7 @@ public class EstoqueService {
 
   private final ItemComercialJpaRepository itemRepository;
 
-  @Transactional
+  @Transactional(noRollbackFor = {EstoqueInsuficienteException.class, ItemNaoEncontradoException.class})
   public void baixarEstoque(UUID referenciaId, String tipo, int quantidade) {
     ItemComercialEntity item = itemRepository.findById(referenciaId)
         .orElseThrow(() -> new ItemNaoEncontradoException(referenciaId));
