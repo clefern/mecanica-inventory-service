@@ -1,5 +1,8 @@
 # mecanica-inventory-service
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mecanica_inventory-service&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=mecanica_inventory-service)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=mecanica_inventory-service&metric=coverage)](https://sonarcloud.io/summary/new_code?id=mecanica_inventory-service)
+
 > Gerencia o estoque de peças e insumos, executando reserva e estorno como etapa compensável da Saga (Fase 4, Grupo 14SOAT).
 
 ## Responsabilidade na Saga
