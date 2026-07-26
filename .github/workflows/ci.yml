@@ -2,42 +2,14 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
   pull_request:
-    branches: [main]
+    branches: [main, develop]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0   # histórico completo p/ análise de PR do SonarCloud (ref main)
-
-      - uses: actions/setup-java@v4
-        with:
-          java-version: '21'
-          distribution: temurin
-          cache: maven
-          server-id: github
-          server-username: GITHUB_ACTOR
-          server-password: GITHUB_TOKEN
-
-      - name: Build e testes
-        run: mvn --batch-mode verify
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Análise SonarCloud
-        run: mvn --batch-mode sonar:sonar
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-      - name: Relatório JaCoCo
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: jacoco-report-inventory-service
-          path: target/site/jacoco/
-          retention-days: 7
+  test:
+    uses: clefern/fiap-tc-mecanica-pipelines/.github/workflows/test.yml@develop
+    with:
+      service-name: inventory-service
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
