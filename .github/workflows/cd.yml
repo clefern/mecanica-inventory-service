@@ -9,12 +9,22 @@ on:
         default: 'lab'
         type: choice
         options: [lab, develop]
+      ecr_repository:
+        description: 'Repositório ECR do serviço'
+        required: true
+        type: string
+        default: 'fiap-mecanica-inventory-service'
+      k8s_deployment:
+        description: 'Nome do Deployment no k8s'
+        required: true
+        type: string
+        default: 'inventory-service'
 
 jobs:
   build:
     uses: clefern/fiap-tc-mecanica-pipelines/.github/workflows/build.yml@develop
     with:
-      service_name: inventory-service
+      ecr_repository: ${{ inputs.ecr_repository }}
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -25,7 +35,7 @@ jobs:
     uses: clefern/fiap-tc-mecanica-pipelines/.github/workflows/deploy.yml@develop
     with:
       environment: ${{ inputs.environment }}
-      k8s_deployment: inventory-service
+      k8s_deployment: ${{ inputs.k8s_deployment }}
       image_uri: ${{ needs.build.outputs.image-uri }}
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
