@@ -1,0 +1,18 @@
+# Prioridade 200: mais específica que a rota catch-all /api (100) do
+# monólito, que compartilha o mesmo namespace/gateway Traefik (D1).
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: inventory-service-gateway
+  labels:
+    app: inventory-service
+    tier: gateway
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: PathPrefix(`/api/estoque`)
+      priority: 200
+      services:
+        - name: inventory-service
+          port: 80
