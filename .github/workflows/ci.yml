@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    uses: Overz/fiap-tc-mecanica-pipelines/.github/workflows/test.yml@main
+    uses: clefern/fiap-tc-mecanica-pipelines/.github/workflows/test.yml@develop
     with:
       service-name: inventory-service
     secrets:
