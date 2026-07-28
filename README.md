@@ -23,6 +23,10 @@ inventory-service → [PecasReservadasEvent | FalhaNaReservaEvent] → os-servic
 
 Swagger: `http://localhost:8082/swagger-ui.html`
 
+Collection Insomnia com o fluxo E2E completo dos 4 microsserviços:
+[`Insomnia_export.yaml`](https://github.com/clefern/mecanica-infra-ms/blob/main/mecanica-fiap/Insomnia_export.yaml)
+(repo `mecanica-infra-ms`).
+
 ## Mensagens RabbitMQ
 
 ### Consome
